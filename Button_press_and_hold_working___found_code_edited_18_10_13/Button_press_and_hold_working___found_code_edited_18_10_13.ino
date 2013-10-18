@@ -4,6 +4,7 @@
 
 // Parameters
 int HOLD_DELAY = 500;    // Sets the hold delay of switch for LED state change
+int HOLD_CLICK = 70;
  
 int ledPin     = 9;      // LED is connected to pin x
 int switchPin  = 3;      // Switch is connected to pin x
@@ -42,8 +43,12 @@ void loop()
          allow = false;         // prevent multiple state changes
          Serial.println("Dash");
       } // end inner if
-      else
-        Serial.println("Dot");
+      else if( (millis() - start_hold) < HOLD_DELAY && ( (millis() - start_hold) >= HOLD_CLICK) )
+      {
+        
+          Serial.println("Dot"); // :) dot dot dot dash dash dash dot dot dot
+      }
+      
   } // end outer if
  
   sw_laststate = sw_state;   
