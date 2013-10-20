@@ -5,7 +5,6 @@
 // Parameters
 int HOLD_DELAY = 500;    // Sets the hold delay for the signal to be interpreted as a dash
 int CLICK_DELAY = 20;    // singal minimum length to be a dot - avoid debounce
-
 int switchPin  = 3;      // Switch is connected to pin 3
  
 // In-Program Variables 
@@ -13,6 +12,8 @@ unsigned long start_hold;
 boolean allow = false;
 int sw_state;            // nextstate system
 int sw_laststate = LOW;
+
+int signal;
 
 // Setup
 void setup() 
@@ -24,7 +25,37 @@ void setup()
 // Loop
 void loop()
 {
-  sw_state = digitalRead(switchPin);             // read input value
+  if( sw_state == HIGH)
+  {
+    dotOrDash();
+  } // end 
+  if(allow == true && sw_state == LOW && sw_laststate == HIGH) 
+  {// timer passed 3 seconds with no button press/or hold
+    
+  } // end if
+  
+   
+} // end void loop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function returns a dot or dash value
+void dotOrDash()
+{
+    sw_state = digitalRead(switchPin);             // read input value
   
   if (sw_state == HIGH && sw_laststate == LOW)
   {  // for button pressing
@@ -52,6 +83,10 @@ void loop()
     }
   }
  
-  sw_laststate = sw_state;   
-} // end void loop
+  sw_laststate = sw_state;
+  
+  
+  
+  
+} // end dotOrDash
 
